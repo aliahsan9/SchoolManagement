@@ -29,7 +29,7 @@ public sealed class RegisterCommandValidator : AbstractValidator<RegisterCommand
             {
                 var normalized = email.Trim().ToLowerInvariant();
                 return !await context.Users.AnyAsync(
-                    u => string.Equals(u.Email, normalized, StringComparison.Ordinal),
+                    u => u.Email == normalized,
                     ct);
             })
             .WithMessage("Email is already registered.");

@@ -18,7 +18,7 @@ public sealed class CreateStudentCommandValidator : AbstractValidator<CreateStud
             {
                 var normalized = email.Trim().ToLowerInvariant();
                 return !await context.Users.AnyAsync(
-                    u => string.Equals(u.Email, normalized, StringComparison.Ordinal),
+                    u => u.Email == normalized,
                     ct);
             })
             .WithMessage("Email is already in use.");

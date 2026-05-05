@@ -47,6 +47,17 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy(PolicyNames.StudentOnly, p => p.RequireRole(RoleNames.Student))
     .AddPolicy(PolicyNames.AdminOrTeacher, p => p.RequireRole(RoleNames.Admin, RoleNames.Teacher));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("FrontendDevCors", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -57,6 +68,10 @@ builder.Services.AddSwaggerGen(options =>
         Version = "v1",
         Description = "API version 1. For login/register on localhost, set header **X-Tenant-Subdomain: demo** (seeded school). JWT: Authorize with Bearer token."
     });
+
+    // Include every discovered controller/action in the v1 document even when
+    // controllers use custom ApiExplorer group names for UI tagging.
+    options.DocInclusionPredicate((documentName, _) => documentName == "v1");
 
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -82,6 +97,13 @@ builder.Services.AddSwaggerGen(options =>
             new OpenApiSecurityScheme
             {
                 Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+            },
+            Array.Empty<string>()
+        },
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Tenant" }
             },
             Array.Empty<string>()
         }
@@ -111,6 +133,7 @@ app.UseSwaggerUI(options =>
 });
 
 app.UseHttpsRedirection();
+app.UseCors("FrontendDevCors");
 
 app.UseAuthentication();
 app.UseMiddleware<TenantResolutionMiddleware>();
