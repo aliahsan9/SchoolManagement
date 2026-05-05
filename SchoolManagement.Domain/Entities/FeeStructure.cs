@@ -1,10 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using SchoolManagement.Domain.Common;
 
 namespace SchoolManagement.Domain.Entities
 {
-    internal class FeeStructure
+    public class FeeStructure : BaseEntity
     {
+        public Guid ClassId { get; set; }
+        public Classes Classes { get; set; } = null!;
+
+        public Guid FeeTypeId { get; set; }
+        public FeeType FeeType { get; set; } = null!;
+
+        public decimal Amount { get; set; }
     }
 }

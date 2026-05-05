@@ -8,7 +8,7 @@ namespace SchoolManagement.Domain.Entities
         public Student Student { get; set; } = null!;
 
         public Guid ClassId { get; set; }
-        public Class Class { get; set; } = null!;
+        public Classes Classes { get; set; } = null!;
 
         public Guid SectionId { get; set; }
         public Section Section { get; set; } = null!;

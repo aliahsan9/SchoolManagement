@@ -1,12 +1,8 @@
 using SchoolManagement.Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using static System.Collections.Specialized.BitVector32;
 
 namespace SchoolManagement.Domain.Entities
 {
-    public class Class : BaseEntity
+    public class Classes : BaseEntity, Common.ISchoolScoped
     {
         public string Name { get; set; } = null!;
         public string? Description { get; set; }
