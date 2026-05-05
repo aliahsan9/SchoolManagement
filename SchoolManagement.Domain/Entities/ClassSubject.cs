@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using SchoolManagement.Domain.Common;
 
 namespace SchoolManagement.Domain.Entities
 {
-    internal class ClassSubject
+    public class ClassSubject : BaseEntity
     {
+        public Guid ClassId { get; set; }
+        public Classes Classes { get; set; } = null!;
+
+        public Guid SubjectId { get; set; }
+        public Subject Subject { get; set; } = null!;
     }
 }

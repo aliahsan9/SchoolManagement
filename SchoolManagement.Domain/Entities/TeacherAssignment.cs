@@ -1,7 +1,4 @@
 using SchoolManagement.Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SchoolManagement.Domain.Entities
 {
@@ -11,7 +8,7 @@ namespace SchoolManagement.Domain.Entities
         public Teacher Teacher { get; set; } = null!;
 
         public Guid ClassId { get; set; }
-        public Class Class { get; set; } = null!;
+        public Classes Classes { get; set; } = null!;
 
         public Guid SectionId { get; set; }
         public Section Section { get; set; } = null!;

@@ -7,6 +7,6 @@ namespace SchoolManagement.Domain.Entities
         public int Capacity { get; set; }
 
         public Guid ClassId { get; set; }
-        public Class Class { get; set; } = null!;
+        public Classes Classes { get; set; } = null!;
     }
 }

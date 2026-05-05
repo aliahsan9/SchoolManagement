@@ -15,6 +15,7 @@ dotnet_naming_rule.types_should_be_pascal.severity = warning
 dotnet_style_null_propagation = true:suggestion
 dotnet_diagnostic.CS8600.severity = warning
 dotnet_diagnostic.CS8601.severity = warning
+dotnet_diagnostic.CA1711.severity = none
 
 # Code quality
 dotnet_analyzer_diagnostic.severity = warning

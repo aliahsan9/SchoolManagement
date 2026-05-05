@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using SchoolManagement.Domain.Common;
 
 namespace SchoolManagement.Domain.Entities
 {
-    internal class FeeType
+    public class FeeType : BaseEntity
     {
+        public string Name { get; set; } = null!;
     }
 }
