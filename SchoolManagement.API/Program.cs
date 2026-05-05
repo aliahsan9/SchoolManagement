@@ -47,6 +47,17 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy(PolicyNames.StudentOnly, p => p.RequireRole(RoleNames.Student))
     .AddPolicy(PolicyNames.AdminOrTeacher, p => p.RequireRole(RoleNames.Admin, RoleNames.Teacher));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("FrontendDevCors", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -122,6 +133,7 @@ app.UseSwaggerUI(options =>
 });
 
 app.UseHttpsRedirection();
+app.UseCors("FrontendDevCors");
 
 app.UseAuthentication();
 app.UseMiddleware<TenantResolutionMiddleware>();
