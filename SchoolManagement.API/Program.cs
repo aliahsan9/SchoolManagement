@@ -58,6 +58,10 @@ builder.Services.AddSwaggerGen(options =>
         Description = "API version 1. For login/register on localhost, set header **X-Tenant-Subdomain: demo** (seeded school). JWT: Authorize with Bearer token."
     });
 
+    // Include every discovered controller/action in the v1 document even when
+    // controllers use custom ApiExplorer group names for UI tagging.
+    options.DocInclusionPredicate((documentName, _) => documentName == "v1");
+
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -82,6 +86,13 @@ builder.Services.AddSwaggerGen(options =>
             new OpenApiSecurityScheme
             {
                 Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+            },
+            Array.Empty<string>()
+        },
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Tenant" }
             },
             Array.Empty<string>()
         }

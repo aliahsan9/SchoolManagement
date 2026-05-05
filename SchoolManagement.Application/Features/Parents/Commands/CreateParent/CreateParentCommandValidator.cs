@@ -16,7 +16,7 @@ public sealed class CreateParentCommandValidator : AbstractValidator<CreateParen
             .MustAsync(async (email, ct) =>
             {
                 var n = email.Trim().ToLowerInvariant();
-                return !await context.Users.AnyAsync(u => string.Equals(u.Email, n, StringComparison.Ordinal), ct);
+                return !await context.Users.AnyAsync(u => u.Email == n, ct);
             })
             .WithMessage("Email already in use.");
 
