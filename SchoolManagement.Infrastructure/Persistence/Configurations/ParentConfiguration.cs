@@ -2,24 +2,25 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SchoolManagement.Domain.Entities;
 
-namespace SchoolManagement.Infrastructure.Persistence.Configurations;
-
-public class ParentConfiguration : IEntityTypeConfiguration<Parent>
+namespace SchoolManagement.Infrastructure.Persistence.Configurations
 {
-    public void Configure(EntityTypeBuilder<Parent> builder)
+    public class ParentConfiguration : IEntityTypeConfiguration<Parent>
     {
-        builder.ToTable("Parents");
+        public void Configure(EntityTypeBuilder<Parent> builder)
+        {
+            builder.ToTable("Parents");
 
-        builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.Id);
 
-        builder.HasIndex(x => new { x.SchoolId, x.UserId });
+            builder.HasIndex(x => new { x.SchoolId, x.UserId });
 
-        builder.HasOne(x => x.School)
-            .WithMany()
-            .HasForeignKey(x => x.SchoolId);
+            builder.HasOne(x => x.School)
+                .WithMany()
+                .HasForeignKey(x => x.SchoolId);
 
-        builder.HasOne(x => x.User)
-            .WithMany()
-            .HasForeignKey(x => x.UserId);
+            builder.HasOne(x => x.User)
+                .WithMany()
+                .HasForeignKey(x => x.UserId);
+        }
     }
 }

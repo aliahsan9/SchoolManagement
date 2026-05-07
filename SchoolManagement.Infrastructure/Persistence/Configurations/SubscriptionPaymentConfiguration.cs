@@ -2,23 +2,24 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SchoolManagement.Domain.Entities;
 
-namespace SchoolManagement.Infrastructure.Persistence.Configurations;
-
-public class SubscriptionPaymentConfiguration : IEntityTypeConfiguration<SubscriptionPayment>
+namespace SchoolManagement.Infrastructure.Persistence.Configurations
 {
-    public void Configure(EntityTypeBuilder<SubscriptionPayment> builder)
+    public class SubscriptionPaymentConfiguration : IEntityTypeConfiguration<SubscriptionPayment>
     {
-        builder.ToTable("SubscriptionPayments");
+        public void Configure(EntityTypeBuilder<SubscriptionPayment> builder)
+        {
+            builder.ToTable("SubscriptionPayments");
 
-        builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.Id);
 
-        builder.HasIndex(x => x.SchoolSubscriptionId);
-        builder.HasIndex(x => x.ExternalTransactionId);
+            builder.HasIndex(x => x.SchoolSubscriptionId);
+            builder.HasIndex(x => x.ExternalTransactionId);
 
-        builder.Property(x => x.Amount).HasPrecision(18, 2);
+            builder.Property(x => x.Amount).HasPrecision(18, 2);
 
-        builder.HasOne(x => x.SchoolSubscription)
-            .WithMany(x => x.Payments)
-            .HasForeignKey(x => x.SchoolSubscriptionId);
+            builder.HasOne(x => x.SchoolSubscription)
+                .WithMany(x => x.Payments)
+                .HasForeignKey(x => x.SchoolSubscriptionId);
+        }
     }
 }

@@ -13,6 +13,8 @@ dotnet_naming_rule.types_should_be_pascal.severity = warning
 
 # Nullable reference types
 dotnet_style_null_propagation = true:suggestion
+csharp_style_var_for_locals = true:suggestion
+dotnet_diagnostic.IDE0008.severity = none
 dotnet_diagnostic.CS8600.severity = warning
 dotnet_diagnostic.CS8601.severity = warning
 dotnet_diagnostic.CA1711.severity = none

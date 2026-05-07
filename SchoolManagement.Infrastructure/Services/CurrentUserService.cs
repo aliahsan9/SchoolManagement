@@ -3,37 +3,38 @@ using Microsoft.AspNetCore.Http;
 using SchoolManagement.Application.Interfaces;
 using SchoolManagement.Domain.Constants;
 
-namespace SchoolManagement.Infrastructure.Services;
-
-public sealed class CurrentUserService(IHttpContextAccessor httpContextAccessor) : ICurrentUserService
+namespace SchoolManagement.Infrastructure.Service
 {
-    private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
-
-    public Guid? UserId
+    public sealed class CurrentUserService(IHttpContextAccessor httpContextAccessor) : ICurrentUserService
     {
-        get
+        private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
+
+        public Guid? UserId
         {
-            var id = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return Guid.TryParse(id, out var g) ? g : null;
+            get
+            {
+                var id = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                return Guid.TryParse(id, out var g) ? g : null;
+            }
         }
-    }
 
-    public string? Email =>
-        _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Email);
+        public string? Email =>
+            _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Email);
 
-    public Guid? SchoolId
-    {
-        get
+        public Guid? SchoolId
         {
-            var v = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimNames.SchoolId);
-            return Guid.TryParse(v, out var g) ? g : null;
+            get
+            {
+                var v = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimNames.SchoolId);
+                return Guid.TryParse(v, out var g) ? g : null;
+            }
         }
-    }
 
-    public IReadOnlyList<string> Roles =>
-        _httpContextAccessor.HttpContext?.User
-            .FindAll(ClaimTypes.Role)
-            .Select(c => c.Value)
-            .ToList()
-        ?? [];
+        public IReadOnlyList<string> Roles =>
+            _httpContextAccessor.HttpContext?.User
+                .FindAll(ClaimTypes.Role)
+                .Select(c => c.Value)
+                .ToList()
+            ?? [];
+    }
 }

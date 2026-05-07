@@ -1,20 +1,21 @@
 using SchoolManagement.Application.Interfaces;
 
-namespace SchoolManagement.Infrastructure.Gateways;
-
-public sealed class FakePaymentGateway : IPaymentGateway
+namespace SchoolManagement.Infrastructure.Payment
 {
-    public Task<PaymentChargeResult> ChargeAsync(
-        decimal amount,
-        string currency,
-        string paymentMethod,
-        string merchantReference,
-        CancellationToken cancellationToken = default)
+    public sealed class FakePaymentGateway : IPaymentGateway
     {
-        _ = amount;
-        _ = currency;
-        _ = paymentMethod;
-        _ = merchantReference;
-        return Task.FromResult(new PaymentChargeResult(true, $"sim_{Guid.NewGuid():N}", null));
+        public Task<PaymentChargeResult> ChargeAsync(
+            decimal amount,
+            string currency,
+            string paymentMethod,
+            string merchantReference,
+            CancellationToken cancellationToken = default)
+        {
+            _ = amount;
+            _ = currency;
+            _ = paymentMethod;
+            _ = merchantReference;
+            return Task.FromResult(new PaymentChargeResult(true, $"sim_{Guid.NewGuid():N}", null));
+        }
     }
 }

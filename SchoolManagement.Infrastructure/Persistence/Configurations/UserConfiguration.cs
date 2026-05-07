@@ -1,12 +1,10 @@
 
-  using Microsoft.EntityFrameworkCore;
-  using Microsoft.EntityFrameworkCore.Metadata.Builders;
-  using SchoolManagement.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SchoolManagement.Domain.Entities;
 
 namespace SchoolManagement.Infrastructure.Persistence.Configurations
 {
-  
-
     public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
