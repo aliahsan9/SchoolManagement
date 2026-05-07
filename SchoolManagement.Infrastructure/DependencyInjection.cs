@@ -3,41 +3,42 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SchoolManagement.Application.Common.Configuration;
 using SchoolManagement.Application.Interfaces;
+using SchoolManagement.Infrastructure.Payment;
 using SchoolManagement.Infrastructure.Persistence;
-using SchoolManagement.Infrastructure.Gateways;
 using SchoolManagement.Infrastructure.Persistence.Interceptors;
 using SchoolManagement.Infrastructure.Services;
 
-namespace SchoolManagement.Infrastructure;
-
-public static class DependencyInjection
+namespace SchoolManagement.Infrastructure
 {
-    public static IServiceCollection AddInfrastructure(
-        this IServiceCollection services,
-        IConfiguration configuration)
+    public static class DependencyInjection
     {
-        services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
-
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
-
-        services.AddScoped<AuditSaveChangesInterceptor>();
-        services.AddDbContext<SchoolDbContext>((sp, options) =>
+        public static IServiceCollection AddInfrastructure(
+            this IServiceCollection services,
+            IConfiguration configuration)
         {
-            options.UseSqlServer(connectionString)
-                .AddInterceptors(sp.GetRequiredService<AuditSaveChangesInterceptor>());
-        });
+            services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
 
-        services.AddScoped<IApplicationDbContext>(sp =>
-            sp.GetRequiredService<SchoolDbContext>());
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-        services.AddScoped<IJwtTokenService, JwtTokenService>();
-        services.AddScoped<IPasswordHasherService, PasswordHasherService>();
-        services.AddScoped<IAuthenticationTokenService, AuthenticationTokenService>();
-        services.AddHttpContextAccessor();
-        services.AddScoped<ICurrentUserService, CurrentUserService>();
-        services.AddScoped<ICurrentTenantContext, CurrentTenantContext>();
-        services.AddScoped<IPaymentGateway, FakePaymentGateway>();
+            services.AddScoped<AuditSaveChangesInterceptor>();
+            services.AddDbContext<SchoolDbContext>((sp, options) =>
+            {
+                options.UseSqlServer(connectionString)
+                    .AddInterceptors(sp.GetRequiredService<AuditSaveChangesInterceptor>());
+            });
 
-        return services;
+            services.AddScoped<IApplicationDbContext>(sp =>
+                sp.GetRequiredService<SchoolDbContext>());
+
+            services.AddScoped<IJwtTokenService, JwtTokenService>();
+            services.AddScoped<IPasswordHasherService, PasswordHasherService>();
+            services.AddScoped<IAuthenticationTokenService, AuthenticationTokenService>();
+            services.AddHttpContextAccessor();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddScoped<ICurrentTenantContext, CurrentTenantContext>();
+            services.AddScoped<IPaymentGateway, FakePaymentGateway>();
+
+            return services;
+        }
     }
 }

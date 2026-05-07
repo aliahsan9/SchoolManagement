@@ -1,12 +1,13 @@
-namespace SchoolManagement.Infrastructure.MultiTenancy;
-
-public static class TenantScope
+namespace SchoolManagement.Infrastructure.MultiTenancy
 {
-    private static readonly AsyncLocal<Guid?> Current = new();
-
-    public static Guid? SchoolId
+    public static class TenantScope
     {
-        get => Current.Value;
-        set => Current.Value = value;
+        private static readonly AsyncLocal<Guid?> Current = new();
+
+        public static Guid? SchoolId
+        {
+            get => Current.Value;
+            set => Current.Value = value;
+        }
     }
 }

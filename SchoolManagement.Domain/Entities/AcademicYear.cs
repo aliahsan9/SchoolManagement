@@ -2,7 +2,7 @@ using SchoolManagement.Domain.Common;
 
 namespace SchoolManagement.Domain.Entities
 {
-    public class AcademicYear : BaseEntity, Common.ISchoolScoped
+    public class AcademicYear : BaseEntity, ISchoolScoped
     {
         public string Name { get; set; } = null!;
         public DateTime StartDate { get; set; }

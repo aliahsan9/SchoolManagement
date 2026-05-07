@@ -1,7 +1,8 @@
-namespace SchoolManagement.Application.Interfaces;
-
-public interface ICurrentTenantContext
+namespace SchoolManagement.Application.Interfaces
 {
-    Guid? SchoolId { get; }
-    bool HasTenant { get; }
+    public interface ICurrentTenantContext
+    {
+        Guid? SchoolId { get; }
+        bool HasTenant { get; }
+    }
 }

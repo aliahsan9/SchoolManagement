@@ -1,25 +1,25 @@
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using SchoolManagement.Application.Common.Behaviors;
-using MediatR;
 using SchoolManagement.Application.Mappings;
 
-namespace SchoolManagement.Application;
-
-public static class DependencyInjection
+namespace SchoolManagement.Application
 {
-    public static IServiceCollection AddApplication(this IServiceCollection services)
+    public static class DependencyInjection
     {
-        services.AddAutoMapper(cfg => cfg.AddProfile<StudentMappingProfile>());
-
-        services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
-
-        services.AddMediatR(cfg =>
+        public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
-            cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
-        });
+            services.AddAutoMapper(cfg => cfg.AddProfile<StudentMappingProfile>());
 
-        return services;
+            services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
+
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
+                cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            });
+
+            return services;
+        }
     }
 }

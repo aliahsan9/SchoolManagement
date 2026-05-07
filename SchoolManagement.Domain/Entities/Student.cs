@@ -2,7 +2,7 @@ using SchoolManagement.Domain.Common;
 
 namespace SchoolManagement.Domain.Entities
 {
-    public class Student : BaseEntity, Common.ISchoolScoped
+    public class Student : BaseEntity, ISchoolScoped
     {
         public Guid UserId { get; set; }
         public User User { get; set; } = null!;

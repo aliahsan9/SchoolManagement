@@ -1,8 +1,9 @@
-namespace SchoolManagement.Domain.Enums;
-
-public enum SubscriptionPlanType
+namespace SchoolManagement.Domain.Enums
 {
-    Trial = 0,
-    MonthlyStandard = 1,
-    YearlyPremium = 2
+    public enum SubscriptionPlanType
+    {
+        Trial = 0,
+        MonthlyStandard = 1,
+        YearlyPremium = 2
+    }
 }

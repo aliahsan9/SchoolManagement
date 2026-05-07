@@ -1,6 +1,7 @@
-namespace SchoolManagement.Domain.Common;
-
-public interface ISchoolScoped
+namespace SchoolManagement.Domain.Common
 {
-    Guid SchoolId { get; }
+    public interface ISchoolScoped
+    {
+        Guid SchoolId { get; }
+    }
 }
